@@ -17,6 +17,9 @@ public class Loan {
 	
 	@Column(name = "loanAmount")
 	private double loanAmount; 
+
+	@Column(name = "interestRate")
+	private double interestRate; 
 	
 	@Column(name = "loanTerm")
 	private int loanTerm; 
@@ -24,17 +27,32 @@ public class Loan {
 	@Column(name = "termTypeId")
 	private int termTypeId; 
 	
+	@Column(name = "monthlyPayment")
+	private double monthlyPayment; 
+	
+	@Column(name = "totalInterest")
+	private double totalInterest;
 
 	public Loan() {}
 	
-	public Loan(long loanId, double loanAmount, int loanTerm, int termTypeId) {
+	public Loan(double loanAmount, double interestRate, int loanTerm, int termTypeId) {
 		super();
-		this.loanId = loanId;
 		this.loanAmount = loanAmount;
+		this.interestRate = interestRate;
 		this.loanTerm = loanTerm;
 		this.termTypeId = termTypeId;
 	}
 
+	public Loan(double loanAmount, double interestRate, int loanTerm, int termTypeId, double monthlyPayment, double totalInterest) {
+		super();
+		this.loanAmount = loanAmount;
+		this.interestRate = interestRate;
+		this.loanTerm = loanTerm;
+		this.termTypeId = termTypeId;
+		this.monthlyPayment = monthlyPayment;
+		this.totalInterest = totalInterest;
+	}
+	
 	public long getLoanId() {
 		return loanId;
 	}
@@ -49,6 +67,14 @@ public class Loan {
 
 	public void setLoanAmount(double loanAmount) {
 		this.loanAmount = loanAmount;
+	}
+	
+	public double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
 	}
 
 	public int getLoanTerm() {
@@ -65,6 +91,22 @@ public class Loan {
 
 	public void setTermTypeId(int termTypeId) {
 		this.termTypeId = termTypeId;
+	}
+	
+	public double getMonthlyPayment() {
+		return monthlyPayment;
+	}
+
+	public void setMonthlyPayment(double monthlyPayment) {
+		this.monthlyPayment = monthlyPayment;
+	}
+	
+	public double getTotalInterest() {
+		return totalInterest;
+	}
+
+	public void setTotalInterest(double totalInterest) {
+		this.totalInterest = totalInterest;
 	}
 
 	
