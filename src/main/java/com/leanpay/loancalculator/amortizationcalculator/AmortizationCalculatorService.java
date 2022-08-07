@@ -1,8 +1,6 @@
 package com.leanpay.loancalculator.amortizationcalculator;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +19,10 @@ public class AmortizationCalculatorService {
 	@Autowired
 	LoanPaymentRepository loanPaymentRepository;
 	
-	public List<LoanPayment> calculateLoan(Loan loan) {
+	public String calculateLoan(Loan loan) {
 		
 		DecimalFormat df = new DecimalFormat("#.##");
-		List<LoanPayment> loanPayments = new ArrayList<LoanPayment>();
+		StringBuilder sb = new StringBuilder();
 		
 		double monthlyPayment;
 		double principalAmount;
@@ -45,6 +43,7 @@ public class AmortizationCalculatorService {
 			numOfMonths *= 12;
 		}
 		
+		//Payment = Loan Amount × i(1 + i)^n / (1 + i)^n − 1
 		monthlyPayment = (loanAmount * interestRate * Math.pow(1 + interestRate, numOfMonths)) / (Math.pow(1 + interestRate, numOfMonths) - 1);
 		
 		totalAmountPaid = monthlyPayment * numOfMonths;
@@ -59,12 +58,13 @@ public class AmortizationCalculatorService {
 		try {
 			loanRepository.save(loan);
 			
-			for(int i = 0; i < numOfMonths; i++) {
+			for(int i = 1; i <= numOfMonths; i++) {
 				interestAmount = balanceOwed * interestRate;
 				principalAmount = monthlyPayment - interestAmount;
 				balanceOwed = balanceOwed - principalAmount;
 				
-				if(balanceOwed < 0) {
+				//if its the last payment, add all of the leftovers from the balanceOwed to the monthlyPayment
+				if(i == numOfMonths) {
 					monthlyPayment = monthlyPayment + Double.valueOf(df.format(balanceOwed));
 					principalAmount = principalAmount + Double.valueOf(df.format(balanceOwed));
 					balanceOwed = 0;
@@ -80,14 +80,17 @@ public class AmortizationCalculatorService {
 				
 				loanPaymentRepository.save(loanPayment);
 				
-				loanPayments.add(loanPayment);
+				sb.append("Month: " + i + "; Payment Amount: " + loanPayment.getPaymentAmount() + "; Principal Amount: " + loanPayment.getPrincipalAmount() 
+						+ "; Interest Amount: " + loanPayment.getInterestAmount() + "; Balance Owed: " + loanPayment.getBalanceOwed() + "\n");
+				
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 		
-		return loanPayments;
+		return sb.toString();
 	}
 }

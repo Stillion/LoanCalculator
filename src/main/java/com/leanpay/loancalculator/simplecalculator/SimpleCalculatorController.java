@@ -16,7 +16,7 @@ public class SimpleCalculatorController {
 	SimpleCalculatorService calulatorService;
 	
 	@CrossOrigin
-	@RequestMapping(method = RequestMethod.POST, value = "calculator/simple")
+	@RequestMapping(method = RequestMethod.POST, value = "/calculator/simple")
 	public String calulateLoan(@RequestBody Loan loan) {
 		 return calulatorService.calculateLoan(loan);
 	}

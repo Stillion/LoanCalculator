@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,6 +20,7 @@ public class LoanPayment {
 	private long loanPaymentId;
 	
 	@ManyToOne
+	@JoinColumn(name ="loanId", nullable = false)
 	private Loan loan;
 	
 	@Column(name = "paymentAmount")
