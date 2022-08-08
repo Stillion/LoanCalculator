@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "fd6f905a-3edf-4f1f-898c-e8db96cf2444",
+		"name": "LoanCalculator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6735360"
+	},
+	"item": [
+		{
+			"name": "Get All Loans",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"loanAmount\": 20000, \"interestRate\": 5, \"loanTerm\": 5, \"termTypeId\": 2}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/loans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"loans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Amortization Schedule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"loanAmount\": 1000, \"interestRate\": 5, \"loanTerm\": 10, \"termTypeId\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/calculator/amortization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculator",
+						"amortization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Simple Loan Calculator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"loanAmount\": 1000, \"interestRate\": 5, \"loanTerm\": 10, \"termTypeId\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/calculator/simple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculator",
+						"simple"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
